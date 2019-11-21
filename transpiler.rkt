@@ -1,10 +1,24 @@
 #lang racket
 
+#|
+Converts a symbol into a quoted string (useful for lambda parameter names)
+|#
 (define (ident->string datum) (format "\"~a\"" (symbol->string datum)))
 
+#|
+Converts a list of symbols into a list of quoted strings (usefule for
+multiple lambda parameter names)
+|#
 (define (string-lst lst) (format "[~a]" (string-join (map ident->string lst) ", ")))
+
+#|
+Converts a list of Chups expressions into a list of haskell data expressions
+|#
 (define (expr-lst lst) (format "[~a]" (string-join (map transpile lst) ", ")))
 
+#|
+Transpiles a single Chups expression into a haskell data expression string
+|#
 (define (transpile datum)
   (match datum
     [(? integer?) (format "(IntLiteral ~a)" datum)]
@@ -21,6 +35,9 @@
     [(list func params ...) (format "(Call ~a ~a)" (transpile func) (expr-lst params))]
 ))
 
+#|
+Reads datums from to-read into a list of datums
+|#
 (define (read-to-lst to-read)
   (match (read to-read)
     [(? eof-object?) null]
@@ -29,6 +46,9 @@
 
 (define racket-prog (vector-ref (current-command-line-arguments) 0))
 
+#|
+Outputs the haskell-strings for input into the haskell transformation script
+|#
 (displayln 
   (match 
     (map transpile (call-with-input-string racket-prog read-to-lst))
