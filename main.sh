@@ -9,39 +9,34 @@ LENGTH=`echo $FILES | wc -w`
 PASSED="0"
 FAILED="0"
 
+ORIG_HEADER=`cat ./origTransformHeader.rkt`
+
 echo "Running $LENGTH tests ..."
 
 for file in $FILES; do
   PROGRAM=`tr -cd "[:print:]\n" < "./tests/$file"`
+  ORIG="./tmp/$file.o.rkt"
+  TRAN="./tmp/$file.t.rkt"
 
   # headers for the language
-  echo "#!/usr/bin/racket" > ./tmp/original.rkt
-  echo "#lang racket" >> ./tmp/original.rkt
+  echo "#!/usr/bin/racket" > "$ORIG"
+  echo "#lang racket" >> "$ORIG"
 
   # both files need this header
-  cat ./tmp/original.rkt > ./tmp/transformed.rkt
+  cat "$ORIG" > "$TRAN"
 
   # original racket header and program -- needed for evaulation of the original program input
-  echo "(require racket/control)
-        (define (cps:+ . args) (apply + args))
-        (define (cps:* . args) (apply * args))
-        (define (cps:equal? . args) (apply equal? args))
-        (define (is-exception-of? msg) (lambda (error) (equal? msg error)))
-        (define-syntax try
-              (syntax-rules ()
-                ((_ expr msg handler)
-                (with-handlers ([(is-exception-of? msg) (lambda (err) (handler))]) expr))))
-        $PROGRAM" >> ./tmp/original.rkt
+  printf "$ORIG_HEADER\n$PROGRAM" >> "$ORIG"
 
   # transpile to haskell syntax
   HASKELL=`racket transpiler.rkt "$PROGRAM"`
   # evaulate the haskell version in ghci, to get cpsTransformed racket
   echo "import Control.Monad
         import System.IO
-        (forM_ [stdout, stderr] . flip hPutStrLn) $ show $ cpsTransformProgS $ (Prog $HASKELL)" | ghci -i.. Chups 2>> "./tmp/transformed.rkt" 1>/dev/null
+        (forM_ [stdout, stderr] . flip hPutStrLn) $ show $ cpsTransformProgS $ (Prog $HASKELL)" | ghci -i.. Chups 2>> "$TRAN" 1>/dev/null
 
-  ORIG_RESULT=`racket ./tmp/original.rkt`
-  TRANSFORMED_RESULT=`racket ./tmp/transformed.rkt`
+  ORIG_RESULT=`racket "$ORIG"`
+  TRANSFORMED_RESULT=`racket "$TRAN"`
 
   if [ "$ORIG_RESULT" == "$TRANSFORMED_RESULT" ]; then
     echo "+++ Passed: $file"
