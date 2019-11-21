@@ -1,3 +1,6 @@
+#|
+  Basic branching logic.
+|#
 (define f (lambda (a) a))
 (if 
   (f #t) 

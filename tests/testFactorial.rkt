@@ -1,3 +1,9 @@
+#|
+  Testing the transpiler by calculating the factorial of 100
+  Just testing that the cpsTransformation of function calls 
+  are sematically correct.
+|#
+
 (define fac-helper (lambda (n c acc)
   (if (cps:equal? n c) (cps:* acc c) (fac-helper n (cps:+ c 1) (cps:* acc c)))))
 ; we have to use an accumulator for fac because there is no "-" function
