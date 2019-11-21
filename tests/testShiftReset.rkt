@@ -1,0 +1,1 @@
+(cps:* 11 (reset (cps:* 10 (shift k (k (reset (shift k (k 10))))))))

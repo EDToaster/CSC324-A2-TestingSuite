@@ -1,0 +1,1 @@
+(try (raise "err") "err" (lambda () 42))
