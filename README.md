@@ -22,6 +22,8 @@ All tests reside in `./tests`, add a new file here for your new test.
 
 Note: You need to use the `cps` transformed versions of the functions `cps:*, cps:+, etc`. Since there is no `cps:-` or `cps:/`, arithmetic expressions are fairly limited (unless you implement them yourself). The testing suite does not guarantee that your solution to A2 is correct, even if it passes all of the test cases!
 
+Note note: The return value of the test cases can be anything. We aren't checking for the return values ... rather we are checking that, after running through the transformation, the output stays the same!
+
 ## Implementation
 
 This test suite works as follows:
