@@ -3,7 +3,15 @@
 rm -rf ./tmp
 mkdir ./tmp
 
-for file in `ls ./tests`; do
+FILES=`ls ./tests`
+
+LENGTH=`echo $FILES | wc -w`
+PASSED="0"
+FAILED="0"
+
+echo "Running $LENGTH tests ..."
+
+for file in $FILES; do
   PROGRAM=`tr -cd "[:print:]\n" < "./tests/$file"`
 
   # headers for the language
@@ -37,7 +45,14 @@ for file in `ls ./tests`; do
 
   if [ "$ORIG_RESULT" == "$TRANSFORMED_RESULT" ]; then
     echo "+++ Passed: $file"
+    ((PASSED++))
   else
     echo "+++ Failed: $file"
+    ((FAILED++))
   fi
 done
+
+echo "Passed $PASSED out of $LENGTH tests"
+if [ "$FAILED" != "0" ]; then
+  echo "($FAILED tests failed)"
+fi
