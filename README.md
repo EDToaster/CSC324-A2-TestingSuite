@@ -20,7 +20,7 @@ If your directory containing your source files (`Chups.hs`) is `dir/`, clone the
 
 All tests reside in `./tests`, add a new file here for your new test.
 
-Note: You need to use the `cps` transformed versions of the functions `cps:*, cps:+, etc`.
+Note: You need to use the `cps` transformed versions of the functions `cps:*, cps:+, etc`. Since there is no `cps:-` or `cps:/`, arithmetic expressions are fairly limited (unless you implement them yourself). The testing suite does not guarantee that your solution to A2 is correct, even if it passes all of the test cases!
 
 ## Implementation
 
