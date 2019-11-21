@@ -27,7 +27,7 @@ for file in `ls ./tests`; do
 
   echo "import Control.Monad
         import System.IO
-        (forM_ [stdout, stderr] . flip hPutStrLn) $ show $ cpsTransformProgS $ (Prog $HASKELL)" | ghci -i.. Chups 2>> "$at/tmp/transformed.rkt" 1>/dev/null
+        (forM_ [stdout, stderr] . flip hPutStrLn) $ show $ cpsTransformProgS $ (Prog $HASKELL)" | ghci -i.. Chups 2>> "./tmp/transformed.rkt" 1>/dev/null
 
   ORIG_RESULT=`racket ./tmp/original.rkt`
   TRANSFORMED_RESULT=`racket ./tmp/transformed.rkt`
