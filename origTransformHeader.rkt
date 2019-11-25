@@ -6,4 +6,4 @@
 (define-syntax try
       (syntax-rules ()
         ((_ expr msg handler)
-        (with-handlers ([(is-exception-of? msg) (lambda (err) (handler))]) expr))))
+        (with-handlers ([(is-exception-of? msg) (lambda (err) handler)]) expr))))
