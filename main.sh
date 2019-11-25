@@ -43,6 +43,10 @@ for file in $FILES; do
     ((PASSED++))
   else
     echo "+++ Failed: $file"
+    echo "======= Expected:"
+    echo "$ORIG_RESULT"
+    echo "======= Found:"
+    echo "$TRANSFORMED_RESULT"    
     ((FAILED++))
   fi
 done

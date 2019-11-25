@@ -1,0 +1,1 @@
+(if ((lambda (x) x) #t) #t #f)
