@@ -1,0 +1,1 @@
+(try (try (raise "err1") "err1" (raise "err2")) "err2" "Found error, exit")
