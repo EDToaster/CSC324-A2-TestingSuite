@@ -1,0 +1,1 @@
+(reset (cps:* 10 (shift k (k (k 10)))))
