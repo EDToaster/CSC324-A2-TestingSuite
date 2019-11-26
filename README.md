@@ -4,17 +4,19 @@ This is a crude testing suite for CSC324-A2 (Chups!)
 
 ## Usage
 
-`git clone` this repository inside your folder containing `Chups.hs` and `ChupsTypes.hs`
+Run the following command in your repository inside your folder containing `Chups.hs` and `ChupsTypes.hs`:
 
-### Example
-
-If your directory containing your source files (`Chups.hs`) is `dir/`, clone the repository into `dir/testing/`
+```sh
+git submodule add https://github.com/EDToaster/CSC324-A2-TestingSuite testing
+```
 
 ### Running the Test Suite
 
-* `cd` into the git repository
-* `chmod +x main.sh`
-* `./main.sh`
+```sh
+cd testing
+chmod +x main.sh
+./main.sh
+```
 
 ### Adding a New Test
 
