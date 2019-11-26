@@ -1,1 +1,2 @@
-(reset (cps:* 10 (shift k1 (k1 (k1 (reset (cps:+ 19 (shift _k (_k (_k (k1 10)))))))))))
+; Simple Nested shift
+(reset (cps:* 9 (shift k (k (k 10)))))
