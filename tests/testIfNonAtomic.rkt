@@ -1,1 +1,1 @@
-(if ((lambda (x) x) #t) #t #f)
+(if (cps:equal? (cps:+ 10 10) (cps:+ 20 20)) (cps:+ (cps:* 10 2) (cps:* 10 3)) (cps:* (cps:+ 1 2) (cps:+ 3 4)))
